@@ -35,16 +35,18 @@ def game_play(command_input):
         string: the story at the current place
     """
     global game_state
-
+    story_result = ''
     valid_tokens = token.valid_list(command_input)
 
     for atoken in valid_tokens:
         game_place = game_places[game_state]
+        proposed_state = ''
         if atoken.capitalize() in game_place:
             proposed_state = game_place[atoken.capitalize()]
-            if proposed_state == '':
-                return 'You can not go that way.\n'+game_places[game_state]['Story']
-            else:
-                game_state = proposed_state
-                return game_places[game_state]['Story']
-    return f'Cannot do that here.\n'+game_places[game_state]['Story']
+        if proposed_state == '':
+            story_result = 'You can not go that way.\n' + \
+                game_places[game_state]['Story']
+        else:
+            game_state = proposed_state
+            story_result = game_places[game_state]['Story']
+    return story_result
