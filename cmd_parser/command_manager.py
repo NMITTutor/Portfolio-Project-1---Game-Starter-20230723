@@ -4,13 +4,24 @@ Manages the commands - may not be the best name at this time
 """
 import cmd_parser.token as token
 
+
+def move(game_place):
+    global game_state
+    location = game_place[1]
+    game_state = location
+
+    story_result = show_current_place()
+
+    return story_result
+
+
 game_state = 'Forest'
 game_places = {'Forest': {'Story': 'You are in the forest.\nTo the north is a cave.\nTo the south is a castle',
-                          'North': 'Cave', 'South': 'Castle', 'Image': 'forest.png'},
+                          'North': (move, 'Cave'), 'South': (move, 'Castle'), 'Image': 'forest.png'},
                'Cave': {'Story': 'You are at the cave.\nTo the south is forest.',
-                        'North': '', 'South': 'Forest', 'Image': 'forest_circle.png'},
+                        'South': (move, 'Forest'), 'Image': 'forest_circle.png'},
                'Castle': {'Story': 'You are at the castle.\nTo the north is forest.',
-                          'North': 'Forest', 'South': '', 'Image': 'frog.png'},
+                          'North': (move, 'Forest'), 'Image': 'frog.png'},
                }
 
 
@@ -32,7 +43,7 @@ def game_play(command_input):
     Args:
         command input string:
     Returns:
-        string: the story at the current place
+        string: the story at the current place, after an action
     """
     global game_state
     story_result = ''
@@ -40,13 +51,10 @@ def game_play(command_input):
 
     for atoken in valid_tokens:
         game_place = game_places[game_state]
-        proposed_state = ''
-        if atoken.capitalize() in game_place:
-            proposed_state = game_place[atoken.capitalize()]
-        if proposed_state == '':
-            story_result = 'You can not go that way.\n' + \
-                game_places[game_state]['Story']
+        the_place = atoken.capitalize()
+        if the_place in game_place:
+            place = game_place[the_place]
+            story_result = place[0](place)
         else:
-            game_state = proposed_state
-            story_result = game_places[game_state]['Story']
+            story_result = f"Can't {the_place} here\n"+show_current_place()
     return story_result
