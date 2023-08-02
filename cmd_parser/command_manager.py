@@ -7,6 +7,7 @@ import cmd_parser.token as token
 
 def move(game_place):
     global game_state
+
     location = game_place[1]
     game_state = location
 
