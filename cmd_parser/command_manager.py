@@ -2,6 +2,7 @@
 Manages the commands - may not be the best name at this time
 
 """
+# import typing
 import cmd_parser.token as token
 
 
