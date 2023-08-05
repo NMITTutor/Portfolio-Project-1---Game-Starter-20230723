@@ -3,8 +3,8 @@ from enum import Enum
 
 Take string containing a proposed command produce a list of tokens
 """
-_vocab_tokens = set(['north', 'south', 'east', 'west', 'monster', 'fight', 'pick', 'up',
-                    'open', 'close', 'run', 'duck', 'hide', 'go', 'swing', 'number', 'operator', 'name'])
+_vocab_tokens = set(['north', 'south', 'east', 'west', 'monster', 'fight', 'pick', 'up', 'talk',
+                    'leave', 'enter', 'open', 'close', 'run', 'duck', 'hide', 'go', 'swing', 'number', 'operator', 'name'])
 _operators = set(['+', '-', 'x', '/', '(', ')'])
 
 # _white_space = set('\t', '\r', '\n', ' ')

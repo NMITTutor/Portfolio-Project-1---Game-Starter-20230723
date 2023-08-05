@@ -2,7 +2,7 @@
 A comment describing the game module
 """
 import PySimpleGUI as sg
-import time
+
 
 import cmd_parser.command_manager as cm
 
@@ -23,11 +23,11 @@ def make_a_window():
     layout = [[sg.Image(r'images/forest.png', size=(100, 100), key="-IMG-"), sg.Text(cm.show_current_place(), size=(100, 4), font='Any 12', key='-OUTPUT-')],
               [command_col]]
 
-    return sg.Window('Adventure Game', layout, size=(320, 200))
+    return sg.Window('Adventure Game', layout, size=(640, 400))
 
 
 if __name__ == "__main__":
-    # testing for now
+    # testing for now - these should be part of a test suite
     # print(show_current_place())
     # current_story = game_play('North')
     # print(show_current_place())
