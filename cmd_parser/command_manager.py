@@ -31,7 +31,7 @@ def move(game_place):
 
 def talk_to_hermit(game_place):
     """_summary_
-        Hermit gives an amulet
+        Hermit gives a key
         ( inventory update add)
     Args:
         game_place (_type_): _description_
