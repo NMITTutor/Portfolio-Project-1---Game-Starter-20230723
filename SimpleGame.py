@@ -8,6 +8,7 @@ import cmd_parser.command_manager as cm
 
 
 def modal_map_window():
+
     # Extra fun :-) !
     place_width = 100
     off_set = place_width/2
@@ -15,9 +16,9 @@ def modal_map_window():
     def to_pos(pLoc):
         return 10 + (pLoc*place_width)
 
-    map_structure = {key: [
-        cm.game_places[key][next_place][1] for next_place in cm.game_places[key]
-        if next_place != "Story" and next_place != "Image"] for key in cm.game_places}
+    map_structure = {key: [cm.game_places[key][next_place][1] for next_place in cm.game_places[key]
+                           if next_place != "Story" and next_place != "Image"]
+                     for key in cm.game_places}
 
     total_places = len(map_structure)
     print(total_places, map_structure)
