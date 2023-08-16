@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
-<title>Image Description Page</title>
+<title>Simple Game</title>
 </head>
 <body>
   <div class="container">
@@ -16,6 +16,7 @@
       <label for="userInput">Your wish is my command. Enter something:</label>
       <input type="text" id="userInput">
       <button id="submitButton">Enter</button>
+      <button id="restartButton">Start Again</button>
     </div>
   </div>
 
@@ -38,6 +39,7 @@
     // Set up Listeners for actions on the page
     const userInput = document.getElementById('userInput');
     const submitButton = document.getElementById('submitButton');
+    const restartButton = document.getElementById('restartButton');
     const storyParagraph = document.getElementById('storyParagraph');
     const stateImage = document.getElementById('stateImage');
 
@@ -45,6 +47,12 @@
       const enteredValue = userInput.value;
       window.gameState.Command = enteredValue;
       postJSON(window.gameState);
+    });
+
+   restartButton.addEventListener('click', () => {
+      localStorage.clear();
+      location.reload();
+      
     });
 
     function updateDisplay(){
