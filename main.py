@@ -37,9 +37,9 @@ async def root():
 async def root(game_state: GameState):
     print(game_state)
 
-    if game_state.Command == '':
+    if game_state.Command == '' and game_state.Place == "Forest":
         return {"Command": "", "Place": "Forest", "Story": "You are in the Forest. To the north is the castle. To the south is the cave",
-                "Image": "images/forest.png", "Inventory": [""]}
+                "Image": "images/forest.png", "Inventory": []}
     else:
         # Set the game state
         cm.game_state = game_state.Place
