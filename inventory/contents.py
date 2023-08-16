@@ -14,3 +14,10 @@ def remove_item(item_name):
 
 def has_item(item_name):
     return item_name in _player_inventory
+
+
+def all_inventory():
+    all = []
+    for item_name in _player_inventory:
+        all += [item_name]
+    return all

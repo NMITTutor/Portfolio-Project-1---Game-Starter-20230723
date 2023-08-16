@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>Image Description Page</title>
+</head>
+<body>
+  <div class="container">
+    <div class="image-container">
+      <img id="stateImage" = src="" alt="Image">
+    </div>
+    <div class="content-container">
+      <p id="storyParagraph">The story goes here.</p>
+      <label for="userInput">Your wish is my command. Enter something:</label>
+      <input type="text" id="userInput">
+      <button id="submitButton">Enter</button>
+    </div>
+  </div>
+
+  <script>
+  
+    // Let's start with the game state in localStorage
+    //localStorage.clear();
+    window.gameState = JSON.parse(localStorage.getItem("GameState"))
+    
+    if(window.gameState == null){
+      window.gameState = {"Command":"","Place":"Forest", "Story":"Still to get from API", "Image":"images/forest.png","Inventory":[]};
+      localStorage.setItem("GameState",JSON.stringify(window.gameState));
+      console.log(localStorage.getItem("GameState"));
+    }
+    else {
+      window.gameState = JSON.parse(localStorage.getItem("GameState"))
+    }
+
+    
+    // Set up Listeners for actions on the page
+    const userInput = document.getElementById('userInput');
+    const submitButton = document.getElementById('submitButton');
+    const storyParagraph = document.getElementById('storyParagraph');
+    const stateImage = document.getElementById('stateImage');
+
+    submitButton.addEventListener('click', () => {
+      const enteredValue = userInput.value;
+      window.gameState.Command = enteredValue;
+      postJSON(window.gameState);
+    });
+
+    function updateDisplay(){
+      stateImage.src = window.gameState.Image;
+      storyParagraph.innerHTML = window.gameState.Story;
+      
+    }
+
+    function storeGameState(data){
+      window.gameState.Command = data.Command
+      window.gameState.Image = data.Image;
+      window.gameState.Story = data.Story;
+      window.gameState.Inventory = data.Inventory;
+      window.gameState.Place = data.Place;
+      localStorage.setItem("GameState",JSON.stringify(window.gameState))
+    }
+
+
+    // Send a request get the next state
+    async function postJSON(data) {
+      try {
+        const response = await fetch("http://127.0.0.1:8000", {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+    
+        const result = await response.json();
+        console.log("Success:", result);
+        storeGameState(result);
+        updateDisplay();
+
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+
+    // first display 
+    postJSON(window.gameState)
+
+    
+  </script>
+</body>
+</html>
